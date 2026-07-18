@@ -1,203 +1,583 @@
+/* ============================================================
+   DESIGN SYSTEM — Mohammad Reza Shafie Portfolio
+   Modern dark UI with accent color & micro-animations
+   ============================================================ */
+
+/* --- Custom Properties --- */
+:root {
+  --bg:           #0f1117;
+  --surface:      #1a1d27;
+  --surface-2:    #22263a;
+  --surface-3:    #2a2f45;
+  --accent:       #6c63ff;
+  --accent-light: #8b85ff;
+  --accent-glow:  rgba(108, 99, 255, 0.35);
+  --text-primary: #e8eaf0;
+  --text-secondary: #9ca3af;
+  --text-muted:   #6b7280;
+  --border:       rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(108, 99, 255, 0.4);
+  --shadow-card:  0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lift:  0 12px 40px rgba(0, 0, 0, 0.55);
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    20px;
+  --transition:   0.25s ease;
+}
+
+/* ============================================================
+   GLOBAL RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    color: #333333;
-	text-align: justify;
-    font-weight: 340;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a:active, a:hover {
-    color: #359fb5 !important;
-    text-decoration: underline;
+/* --- Custom dark scrollbar --- */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
+p { color: var(--text-secondary); }
+
+strong, b { color: var(--text-primary); }
+
+/* --- Links --- */
 a {
-    color: #0d15ab !important;
-    cursor: pointer;
-    /* font-weight: bold; */
+  color: var(--accent-light) !important;
+  text-decoration: none;
+  transition: color var(--transition), opacity var(--transition);
+  cursor: pointer;
 }
+
+a:hover, a:active {
+  color: #fff !important;
+  text-decoration: none;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 
 .container-center {
-    width: 75%;
-    margin: auto;
-}
-
-.me-background {
-    background-color: #e5f6fc  !important;
-    padding-bottom: 25px;
-    padding-top: 25px;
-}
-
-.me-image {
-    border-radius: 50%;
-    padding:3px;
-    border:1px solid #ECECEC;
-    background-color:#ECECEC;
-}
-
-.me-subtitle {
-    font-size: 1.2rem;
-    font-weight: 600;
+  width: 78%;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .container-main {
-    margin-top: 35px;
-    margin-bottom: 50px;
+  margin-top: 48px;
+  margin-bottom: 80px;
 }
 
-
-.news-table {
-    margin-top: 15px;
-    margin-left: 10%;
-    margin-right: 10%;
+@media (max-width: 768px) {
+  .container-center { width: 92%; }
 }
 
-@media (max-width: 700px) {
-    .container-center {
-        width: 90%;
-    }
+/* ============================================================
+   HERO / PROFILE SECTION
+   ============================================================ */
 
-    .news-table {
-        margin-left: 0%;
-        margin-right: 0%;
-    }
+.me-background {
+  background: linear-gradient(135deg, #0d1020 0%, #111528 50%, #0f1117 100%) !important;
+  border-bottom: 1px solid var(--border);
+  padding-top: 52px !important;
+  padding-bottom: 52px !important;
+  position: relative;
+  overflow: hidden;
 }
 
-td.news-date {
-    vertical-align: text-top;
-    font-weight: 500;
+/* Subtle grid pattern overlay */
+.me-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
-td.news-text {
-    padding-left: 25px;
-    vertical-align: top;
-    padding-bottom: 10px;
+/* Radial glow in top-right */
+.me-background::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Profile photo */
+.me-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow:
+    0 0 0 6px rgba(108,99,255,0.15),
+    0 0 30px var(--accent-glow);
+  transition: box-shadow var(--transition);
+  display: block;
+}
+
+.me-image:hover {
+  box-shadow:
+    0 0 0 8px rgba(108,99,255,0.25),
+    0 0 50px var(--accent-glow);
+}
+
+.float-left { float: left; }
+
+/* Hero text */
+.me-background h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  background: linear-gradient(120deg, #ffffff 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Social links row */
+.me-background > div > p:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.me-background > div > p:first-of-type a {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary) !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all var(--transition);
+}
+
+.me-background > div > p:first-of-type a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+/* Pipe separators hidden */
+.me-background > div > p:first-of-type {
+  color: transparent;
+}
+
+.me-subtitle {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.me-subtitle a {
+  color: var(--accent-light) !important;
+  font-weight: 600;
+}
+
+/* ============================================================
+   SECTION HEADINGS
+   ============================================================ */
+
+.section-label {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+section > h3,
+section > .pb-2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 28px;
+}
+
+/* ============================================================
+   PUBLICATION & PROJECT CARDS
+   ============================================================ */
+
+.card-pub {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 18px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  will-change: transform;
+}
+
+.card-pub:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--border-hover);
+}
+
+/* Publication image */
+.pub-image {
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  width: 100%;
+  opacity: 0.92;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.card-pub:hover .pub-image {
+  opacity: 1;
+  transform: scale(1.02);
 }
 
 .pub-image-cell {
-    max-width: 500px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
 }
 
-.pub-image {
-    /*border:1px solid black;*/
-}
-
+/* Pub text styles */
 .pub-text-p {
-    margin-bottom: 8px;
-    line-height: 1.1rem;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .pub-text-title {
-    font-weight: 550;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.pub-text-authors, .pub-text-authors p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Action link pills (Paper, Code, Draft etc.) */
+.card-pub a[target="_blank"],
+.card-pub a[href*="github"],
+.card-pub a[href*="arxiv"],
+.card-pub a[href*="sciencedirect"],
+.card-pub a[href*="inderscienceonline"],
+.card-pub a[href*="preprints"],
+.card-pub a[href*="ieeexplore"],
+.card-pub a[href*="drive.google"],
+.card-pub a[href*="doc/"] {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-right: 6px;
+  margin-top: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--accent-light) !important;
+  transition: all var(--transition);
+}
+
+.card-pub a[target="_blank"]:hover,
+.card-pub a[href*="github"]:hover,
+.card-pub a[href*="arxiv"]:hover,
+.card-pub a[href*="sciencedirect"]:hover,
+.card-pub a[href*="inderscienceonline"]:hover,
+.card-pub a[href*="preprints"]:hover,
+.card-pub a[href*="ieeexplore"]:hover,
+.card-pub a[href*="drive.google"]:hover,
+.card-pub a[href*="doc/"]:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
+  box-shadow: 0 3px 12px var(--accent-glow);
 }
 
 b.myname {
-    font-weight: 550;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 span.pub-note {
-    font-weight: 550;
-    color: red;
+  color: #f87171;
+  font-weight: 600;
+}
+
+/* ============================================================
+   DEMO LABEL
+   ============================================================ */
+
+.pub-text-title.demo-label {
+  color: var(--accent-light);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+/* ============================================================
+   IFRAMES
+   ============================================================ */
+
+.iframe-with-margin {
+  display: block;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  max-width: 100%;
+  margin-top: 10px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   AWARDS & HONORS
+   ============================================================ */
+
+section ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+section ul li {
+  position: relative;
+  padding-left: 22px;
+  padding-bottom: 10px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* ============================================================
+   BIBTEX
+   ============================================================ */
+
+.bibtex {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-top: 8px;
 }
 
 .bibtex pre {
-    margin: 0;
-    font-size: 70%;
+  margin: 0;
+  font-size: 70%;
+  color: var(--text-secondary);
 }
 
-.bibtex {
-    padding: 0.5rem;
+/* ============================================================
+   NEWS TABLE
+   ============================================================ */
+
+.news-table {
+  margin-top: 15px;
+  width: 100%;
 }
 
-.talks-table {
-    margin-top: 15px;
+td.news-date {
+  vertical-align: top;
+  font-weight: 600;
+  color: var(--accent-light);
+  white-space: nowrap;
+  padding-right: 14px;
+  padding-top: 2px;
 }
+
+td.news-text {
+  padding-left: 10px;
+  vertical-align: top;
+  padding-bottom: 12px;
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   TALKS TABLE
+   ============================================================ */
+
+.talks-table { margin-top: 15px; }
 
 td.talks-date {
-    vertical-align: text-top;
-    font-weight: 500;
+  vertical-align: top;
+  font-weight: 600;
+  color: var(--accent-light);
+  white-space: nowrap;
+  padding-right: 14px;
 }
 
 td.talks-text {
-    padding-left: 25px;
-    vertical-align: top;
-    padding-bottom: 5px;
+  padding-left: 10px;
+  vertical-align: top;
+  padding-bottom: 8px;
+  color: var(--text-secondary);
 }
 
+/* ============================================================
+   SHOW MORE / LIMIT ITEMS
+   ============================================================ */
+
+.limit-items .items tr:nth-of-type(n + 4) { display: none; }
+.limit-items #show-all:checked ~ .items tr { display: table-row; }
+.limit-items #show-all ~ label[for="show-all"] { display: none; }
+.limit-items #show-all:checked ~ .text-hide { display: inline-block; padding: .5%; }
+.limit-items #show-all:not(:checked) ~ .text-show { display: inline-block; padding: .5%; }
+
+.limit-items {
+  display: block;
+  position: relative;
+  padding-bottom: 2.5em;
+}
+
+.limit-items #show-all { display: none; }
+
+.limit-items label[for="show-all"] {
+  display: block;
+  position: absolute;
+  width: 25%;
+  min-width: 120px;
+  bottom: 0;
+  margin-left: 40%;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  text-align: center;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+
+.limit-items label[for="show-all"]:hover { color: var(--accent-light); }
+
+.limit-items label[for="show-all"]:active {
+  color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
 footer {
-    background-color: #e5f6fc;
-    padding-bottom: 10px;
-    padding-left: 5%;
-    padding-top: 10px;
-    color: #99afba;
-    font-size: 0.7rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 20px 5%;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
 }
 
 footer > a {
-    color: #99afba !important;
+  color: var(--text-muted) !important;
 }
 
-/* Show More Feature */
-
-.limit-items .items tr:nth-of-type(n + 4) {
-    display: none;
+footer > a:hover {
+  color: var(--accent-light) !important;
 }
 
-.limit-items #show-all:checked ~ .items tr {
-    display: table-row;
+/* ============================================================
+   SCROLL FADE-IN ANIMATION
+   ============================================================ */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
-.limit-items #show-all ~ label[for="show-all"] {
-    display: none;
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.limit-items #show-all:checked ~ .text-hide {
-    display: inline-block;
-    padding: .5%;
+/* ============================================================
+   BOOTSTRAP OVERRIDES
+   ============================================================ */
+
+.container-fluid {
+  background-color: transparent;
 }
 
-.limit-items #show-all:not(:checked) ~ .text-show {
-    display: inline-block;
-    padding: .5%;
+/* Neutralize bootstrap negative gutter when .card-pub is on the .row itself */
+.row { margin: 0; }
+
+.row.card-pub {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
-.limit-items {
-    display: block;
-    position: relative;
-    padding-bottom: 2.5em;
+/* Pull col padding slightly so card feels balanced */
+.row.card-pub > [class*="col-"] {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
-.limit-items #show-all {
-    display: none;
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+  .container-center { width: 94%; }
+  .me-background h1 { font-size: 1.7rem; }
+  .news-table { margin-left: 0; margin-right: 0; }
+  .card-pub { padding: 14px; }
+  .float-left { float: none !important; margin-bottom: 20px; }
+  .me-image { width: 100px; height: 100px; margin: 0 auto; }
 }
-
-.limit-items label[for="show-all"] {
-    display: block;
-    position: absolute;
-    width: 25%;
-    min-width: 120px;
-    bottom: 0;
-
-    margin-left: 40%;
-    margin-right: 25%, auto;
-
-    cursor: pointer;
-    color: #A0A0A0;
-    font-family: sans-serif;
-    font-size: 0.75rem;
-    font-weight: bold;
-    line-height: 1rem;
-    text-align: center;
-}
-
-.limit-items label[for="show-all"]:hover {
-    border:solid;
-    border-width: 1px;
-}
-
-.limit-items label[for="show-all"]:active {
-    border: 1px solid #222;
-    background-color: #222;
-    color: #fff;
-}
-
-/* The video showcases a breathtaking summer adventure, filled with vibrant colors, laughter, and joyful moments. From sandy beaches to refreshing waterfalls, it captures the essence of the season. With friends and family enjoying outdoor activities like surfing, hiking, and picnics, the video encapsulates the carefree and sun-kissed spirit of summer. */
-
